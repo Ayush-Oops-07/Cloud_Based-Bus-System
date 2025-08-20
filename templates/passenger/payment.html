@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Demo Payment</h3>
+<p>Booking for <strong>Seat {{ booking.seat_number }}</strong> on
+{{ booking.schedule.route.source.name }} → {{ booking.schedule.route.destination.name }}
+at {{ booking.schedule.travel_date }} {{ booking.schedule.depart_time }}</p>
+<p>Amount: <strong>₹{{ '%.2f'|format(sched.price) }}</strong></p>
+<form method="post">
+  <div class="mb-3">
+    <label>Card Number (any 16 digits)</label>
+    <input class="form-control" maxlength="16" minlength="16" required>
+    <label>Expiry Data</label>
+    <input class="form-control" maxlength="5" minlength="5" required>
+    <label>CVV</label>
+    <input class="form-control" maxlength="3" minlength="3" required>
+  </div>
+  <button class="btn btn-success">Pay Now</button>
+</form>
+{% endblock %}

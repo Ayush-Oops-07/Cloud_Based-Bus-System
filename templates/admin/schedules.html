@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Schedules</h3>
+<form method="post" class="row g-2 mb-3">
+  <div class="col-md-4">
+    <select class="form-select" name="route_id" required>
+      <option value="">Select Route</option>
+      {% for r in routes %}
+        <option value="{{ r.id }}">{{ r.source }} → {{ r.destination }} ({{ r.bus.bus_name }})</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2"><input class="form-control" type="date" name="date" required></div>
+  <div class="col-md-2"><input class="form-control" type="time" name="time" required></div>
+  <div class="col-md-2"><input class="form-control" type="number" name="price" step="0.01" placeholder="Price" required></div>
+  <div class="col-md-2"><button class="btn btn-success w-100">Add Schedule</button></div>
+</form>
+<table class="table table-bordered">
+  <thead><tr><th>ID</th><th>Route</th><th>Date</th><th>Time</th><th>Price</th></tr></thead>
+  <tbody>
+    {% for s in schedules %}
+      <tr>
+        <td>{{ s.id }}</td>
+        <td>{{ s.route.source }} → {{ s.route.destination }}</td>
+        <td>{{ s.travel_date }}</td>
+        <td>{{ s.depart_time }}</td>
+        <td>₹{{ '%.2f'|format(s.price) }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

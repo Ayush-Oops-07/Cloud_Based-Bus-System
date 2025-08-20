@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center">
+  <h3>Booking Confirmed ✅</h3>
+  <p>Your PNR: <strong>{{ booking.pnr }}</strong></p>
+  <p>Seat: <strong>{{ booking.seat_number }}</strong> |
+  Route: {{ booking.schedule.route.source.name }} → {{ booking.schedule.route.destination.name }} |
+  Date & Time: {{ booking.schedule.travel_date }} {{ booking.schedule.depart_time }}</p>
+  <a class="btn btn-primary" href="{{ url_for('passenger.my_bookings') }}">View My Bookings</a>
+</div>
+{% endblock %}

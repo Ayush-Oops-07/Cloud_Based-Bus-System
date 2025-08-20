@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>My Bookings</h3>
+<table class="table table-striped">
+  <thead><tr><th>PNR</th><th>Seat</th><th>Route</th><th>Date</th><th>Time</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  {% for b in bookings %}
+    <tr>
+      <td>{{ b.pnr or '-' }}</td>
+      <td>{{ b.seat_number }}</td>
+      <td>{{ b.schedule.route.source.name }} → {{ b.schedule.route.destination.name }}</td>
+      <td>{{ b.schedule.travel_date }}</td>
+      <td>{{ b.schedule.depart_time }}</td>
+      <td>{{ b.status }}</td>
+      <td>
+        {% if b.status == 'booked' %}
+        <form method="post" action="{{ url_for('passenger.cancel', booking_id=b.id) }}">
+          <button class="btn btn-sm btn-outline-danger">Cancel</button>
+        </form>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

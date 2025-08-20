@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Routes</h3>
+<form method="post" class="row g-2 mb-3">
+  <div class="col-md-3"><input class="form-control" name="source" placeholder="Source" required></div>
+  <div class="col-md-3"><input class="form-control" name="destination" placeholder="Destination" required></div>
+  <div class="col-md-4">
+    <select class="form-select" name="bus_id" required>
+      <option value="">Select Bus</option>
+      {% for b in buses %}<option value="{{ b.id }}">{{ b.bus_name }} ({{ b.bus_type }})</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2"><button class="btn btn-success w-100">Add Route</button></div>
+</form>
+<table class="table table-bordered">
+  <thead><tr><th>ID</th><th>Source</th><th>Destination</th><th>Bus</th></tr></thead>
+  <tbody>
+    {% for r in routes %}
+      <tr><td>{{ r.id }}</td><td>{{ r.source }}</td><td>{{ r.destination }}</td><td>{{ r.bus.bus_name }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

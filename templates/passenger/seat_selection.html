@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Choose Your Seat</h3>
+<p><strong>Route:</strong>{{ sched.route.source.name }} → {{ sched.route.destination.name }}|
+<strong>Date:</strong> {{ sched.travel_date }} | <strong>Time:</strong> {{ sched.depart_time }}</p>
+
+<form method="post">
+  <div class="row row-cols-4 g-2">
+    {% for s in seats %}
+      {% set taken = (s in booked) %}
+      <div class="col">
+        <button name="seat" value="{{ s }}" class="btn w-100 {% if taken %}btn-secondary{% else %}btn-outline-primary{% endif %}" {% if taken %}disabled{% endif %}>
+          Seat {{ s }}
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Buses</h3>
+<form method="post" class="row g-2 mb-3">
+  <div class="col-md-4"><input class="form-control" name="bus_name" placeholder="Bus Name" required></div>
+  <div class="col-md-3">
+    <select class="form-select" name="bus_type">
+      <option>AC</option><option>Non-AC</option><option>Sleeper</option>
+    </select>
+  </div>
+  <div class="col-md-3"><input class="form-control" name="total_seats" type="number" min="10" max="60" value="40"></div>
+  <div class="col-md-2"><button class="btn btn-success w-100">Add Bus</button></div>
+</form>
+<table class="table table-bordered">
+  <thead><tr><th>ID</th><th>Name</th><th>Type</th><th>Total Seats</th></tr></thead>
+  <tbody>
+    {% for b in buses %}
+      <tr><td>{{ b.id }}</td><td>{{ b.bus_name }}</td><td>{{ b.bus_type }}</td><td>{{ b.total_seats }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

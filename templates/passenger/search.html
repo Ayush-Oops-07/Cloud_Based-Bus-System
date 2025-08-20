@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="mb-3">Search Buses</h3>
+
+<form method="post" class="row g-3">
+  <div class="col-md-3">
+    <label>From</label>
+    <select class="form-select" name="source" required>
+      <option value="">Select</option>
+      {% for city in cities %}
+        <option value="{{ city.id }}">{{ city.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label>To</label>
+    <select class="form-select" name="destination" required>
+      <option value="">Select</option>
+      {% for city in cities %}
+        <option value="{{ city.id }}">{{ city.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label>Date</label>
+    <input class="form-control" type="date" name="date" required>
+  </div>
+
+  <div class="col-md-2">
+    <label>Bus Type</label>
+    <select class="form-select" name="bus_type">
+      <option value="">Any</option>
+      <option>AC</option>
+      <option>Non-AC</option>
+      <option>Sleeper</option>
+    </select>
+  </div>
+
+  <div class="col-md-1 d-flex align-items-end">
+    <button class="btn btn-primary w-100">Search</button>
+  </div>
+</form>
+
+{% if results %}
+<hr>
+<h5>Available Schedules</h5>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Route</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Bus</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in results %}
+    <tr>
+      <td>{{ s.route.source.name }} → {{ s.route.destination.name }}</td>
+      <td>{{ s.travel_date }}</td>
+      <td>{{ s.depart_time }}</td>
+      <td>{{ s.route.bus.bus_name }} ({{ s.route.bus.bus_type }})</td>
+      <td>₹{{ '%.2f'|format(s.price) }}</td>
+      <td>
+        <a class="btn btn-sm btn-success" href="{{ url_for('passenger.seats', schedule_id=s.id) }}">
+          Select Seats
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

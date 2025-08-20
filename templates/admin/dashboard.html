@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Admin Dashboard</h3>
+<div class="row g-3">
+  <div class="col-md-2"><div class="card p-3"><div>Buses</div><h4>{{ counts.buses }}</h4></div></div>
+  <div class="col-md-2"><div class="card p-3"><div>Routes</div><h4>{{ counts.routes }}</h4></div></div>
+  <div class="col-md-2"><div class="card p-3"><div>Schedules</div><h4>{{ counts.schedules }}</h4></div></div>
+  <div class="col-md-2"><div class="card p-3"><div>Bookings</div><h4>{{ counts.bookings }}</h4></div></div>
+  <div class="col-md-2"><div class="card p-3"><div>Payments</div><h4>{{ counts.payments }}</h4></div></div>
+</div>
+<hr>
+<h5>Latest Bookings</h5>
+<table class="table table-sm">
+  <thead><tr><th>PNR</th><th>User</th><th>Route</th><th>Date</th><th>Seat</th><th>Status</th></tr></thead>
+  <tbody>
+    {% for b in latest %}
+      <tr>
+        <td>{{ b.pnr }}</td>
+        <td>{{ b.user.name }}</td>
+        <td>{{ b.schedule.route.source }} → {{ b.schedule.route.destination }}</td>
+        <td>{{ b.schedule.travel_date }} {{ b.schedule.depart_time }}</td>
+        <td>{{ b.seat_number }}</td>
+        <td>{{ b.status }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

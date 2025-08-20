@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Payment Settlement Reports</h3>
+<p>Total Collected (Fake): <strong>₹{{ '%.2f'|format(total) }}</strong></p>
+<table class="table table-striped">
+  <thead><tr><th>ID</th><th>Booking PNR</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
+  <tbody>
+  {% for p in payments %}
+    <tr>
+      <td>{{ p.id }}</td>
+      <td>{{ p.booking.pnr }}</td>
+      <td>₹{{ '%.2f'|format(p.amount) }}</td>
+      <td>{{ p.status }}</td>
+      <td>{{ p.created_at }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
